@@ -1,0 +1,158 @@
+#include<stdio.h>
+#include<windows.h>
+#define WIDE 200
+#define HIGHT 100
+
+void printxy(); //打印坐标轴
+void contrll();  //初等函数菜单
+
+void Constantfunctions();      //一次函数
+void Powers();                 //幂函数
+void Exponentialfunctions();   //指数函数
+void Logarithms();             //对数函数
+void Trigonometricfunctions(); //三角函数
+void Hyperbolicfunctions();    //双曲线函数
+
+void gotoxy(int x, int y)
+{
+    COORD pos;
+    pos.X = x;
+    pos.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
+
+int main(void)
+{
+    system("mode con: cols=200 lines=100"); //设置窗口大小
+
+    while(1)
+{
+    contrll();
+}
+
+    return 0;
+}
+
+void printxy()   //打印坐标轴
+{
+
+    for (int i = 0; i < WIDE; i++)
+    {
+        gotoxy(i, HIGHT/2);
+        printf("_");
+
+    }
+    for (int i = 0; i < HIGHT; i++)
+    {
+        gotoxy(WIDE/2, i);
+        printf("|");
+
+    }
+}
+
+void contrll()
+{
+    puts("欢迎来到图形计算器1.0");
+    puts("1.一次函数");
+    puts("2.幂函数");
+    puts("3.指数函数");
+    puts("4.对数函数");
+    puts("5.三角函数");
+    puts("6.双曲线函数");
+    printf("输入你要画出函数的类型对应的序号");
+    int xu;
+    scanf("%d",&xu);
+    getchar();
+
+    switch (xu)
+    {
+    case 1:
+        Constantfunctions();
+        break;
+    case 2:
+        Powers();
+        break;
+    case 3:
+        //Exponentialfunctions();
+        break;
+    case 4:
+        //Logarithms();
+        break;
+    case 5:
+        //Trigonometricfunctions();
+        break;
+    case 6:
+        //Hyperbolicfunctions();
+        break;
+    }
+
+
+    }
+void Constantfunctions()
+    {
+        puts("当前你使用的是一次函数");
+        float k, b;
+        printf("输入k值");
+        scanf("%f", &k);
+        getchar();
+        printf("输入b值");
+        scanf("%f", &b);
+        getchar();
+        puts("您已成功录入");
+        system("cls");
+
+        printxy();
+        int x,y;
+        int c =0;
+            for (int i = -50; i < 50; i++)
+        {
+            
+            x=0+c;
+            c+=2;
+            y=-(k*i+b)+50;
+            if(y<0)
+            continue;
+            if (y >100)
+                continue;
+
+            gotoxy(x,y);
+            
+            printf("*");
+        }
+        gotoxy(0,0);
+        puts("按任意键继续");
+        getchar();
+        system("cls");
+}
+
+void Powers()
+{
+    puts("当前模式幂函数");
+    puts("输入次方数");
+    float a;
+    scanf("%f",&a);
+    getchar();
+    puts("您已成功录入");
+
+    printxy();
+    long int x, y;
+    for (int i = -100; i < 100; i++)
+    {
+        x = i + 100;
+        int fake=i;
+        for (int b = 0; b < a; b++)
+        {
+            fake*=fake;
+        }
+        y=(-fake)+100;
+        if(fake>100)
+        continue;
+
+        gotoxy(x, y);
+        printf("*");
+    }
+    gotoxy(0, 0);
+    puts("按任意键继续");
+    getchar();
+    system("cls");
+}
