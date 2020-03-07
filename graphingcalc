@@ -22,6 +22,9 @@ void gotoxy(int x, int y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
+
+
+
 int main(void)
 {
     system("mode con: cols=200 lines=100"); //设置窗口大小
@@ -29,10 +32,13 @@ int main(void)
     while(1)
 {
     contrll();
+
 }
 
     return 0;
 }
+
+
 
 void printxy()   //打印坐标轴
 {
@@ -80,10 +86,10 @@ void contrll()
         Logarithms();
         break;
     case 5:
-        //Trigonometricfunctions();
+        Trigonometricfunctions();
         break;
     case 6:
-        //Hyperbolicfunctions();
+        Hyperbolicfunctions();
         break;
     }
 
@@ -196,12 +202,73 @@ void Logarithms()
     int x = 0, y;
     for (int i = -50; i < 50; i++)
     {
-        int fake = i;
-        y = (-frexp(a,&fake) + 50);
+        y = (-(log10(i)/log10(a)) + 50);
         if (y >= 0 && y <= 100)
         {
             gotoxy(x, y);
             printf("*");
+        }
+        x += 2;
+    }
+    gotoxy(0, 0);
+    puts("按任意键继续");
+    getchar();
+    system("cls");
+}
+
+void Trigonometricfunctions()
+{
+    puts("当前模式三角函数");
+    puts("选择模式");
+    float a;
+    scanf("%f", &a);
+    getchar();
+    puts("您已成功录入");
+    Sleep(500);
+    system("cls");
+
+    printxy();
+    int x = 0, y;
+    for (int i = -50; i < 50; i++)
+    {
+        y = (-(log10(i) / log10(a)) + 50);
+        if (y >= 0 && y <= 100)
+        {
+            gotoxy(x, y);
+            printf("*");
+        }
+        x += 2;
+    }
+    gotoxy(0, 0);
+    puts("按任意键继续");
+    getchar();
+    system("cls");
+}
+
+void Hyperbolicfunctions() //空格代替延申
+{
+    puts("当前模式双曲线函数");
+    puts("输入a值");
+    float a;
+    scanf("%f", &a);
+    getchar();
+    puts("您已成功录入");
+    Sleep(300);
+    system("cls");
+
+    printxy();
+    int x = 0, y;
+    for (int i = -50; i < 50; i++)
+    {
+
+        if(i!=0)
+        {
+        y = (-(a/i) + 50);
+        if (y >= 0 && y <= 100)
+        {
+            gotoxy(x, y);
+            printf("*");
+        }
         }
         x += 2;
     }
