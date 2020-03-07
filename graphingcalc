@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<windows.h>
+#include<math.h>
 #define WIDE 200
 #define HIGHT 100
 
@@ -73,10 +74,10 @@ void contrll()
         Powers();
         break;
     case 3:
-        //Exponentialfunctions();
+        Exponentialfunctions();
         break;
     case 4:
-        //Logarithms();
+        Logarithms();
         break;
     case 5:
         //Trigonometricfunctions();
@@ -99,25 +100,20 @@ void Constantfunctions()
         scanf("%f", &b);
         getchar();
         puts("您已成功录入");
+        Sleep(500);
         system("cls");
 
         printxy();
-        int x,y;
-        int c =0;
+        int x=0,y;
             for (int i = -50; i < 50; i++)
         {
-            
-            x=0+c;
-            c+=2;
             y=-(k*i+b)+50;
-            if(y<0)
-            continue;
-            if (y >100)
-                continue;
-
-            gotoxy(x,y);
-            
-            printf("*");
+            if(y>0 && y<100)
+            {
+                gotoxy(x, y);
+                printf("*");
+            }
+            x += 2;
         }
         gotoxy(0,0);
         puts("按任意键继续");
@@ -125,7 +121,7 @@ void Constantfunctions()
         system("cls");
 }
 
-void Powers()
+void Powers() //数字相差过大竖直补齐
 {
     puts("当前模式幂函数");
     puts("输入次方数");
@@ -133,23 +129,81 @@ void Powers()
     scanf("%f",&a);
     getchar();
     puts("您已成功录入");
+    Sleep(500);
+    system("cls");
 
     printxy();
-    long int x, y;
-    for (int i = -100; i < 100; i++)
+    int x =0, y;
+    for (int i = -50; i < 50; i++)
     {
-        x = i + 100;
         int fake=i;
-        for (int b = 0; b < a; b++)
+        y=(-pow(fake,a)+50);
+        if (y >= 0 && y <= 100)
         {
-            fake*=fake;
+            gotoxy(x, y);
+            printf("*");
         }
-        y=(-fake)+100;
-        if(fake>100)
-        continue;
+            x += 2;
+    }
+    gotoxy(0, 0);
+    puts("按任意键继续");
+    getchar();
+    system("cls");
+}
 
-        gotoxy(x, y);
-        printf("*");
+void Exponentialfunctions()
+{
+    puts("当前模式指数函数");
+    puts("输入底数");
+    float a;
+    scanf("%f", &a);
+    getchar();
+    puts("您已成功录入");
+    Sleep(500);
+    system("cls");
+
+    printxy();
+    int x = 0, y;
+    for (int i = -50; i < 50; i++)
+    {
+        int fake = i;
+        y = (-pow(a,fake) + 50);
+        if (y >= 0 && y <= 100)
+        {
+            gotoxy(x, y);
+            printf("*");
+        }
+        x += 2;
+    }
+    gotoxy(0, 0);
+    puts("按任意键继续");
+    getchar();
+    system("cls");
+}
+
+void Logarithms()
+{
+    puts("当前模式对数函数");
+    puts("输入真数");
+    float a;
+    scanf("%f", &a);
+    getchar();
+    puts("您已成功录入");
+    Sleep(500);
+    system("cls");
+
+    printxy();
+    int x = 0, y;
+    for (int i = -50; i < 50; i++)
+    {
+        int fake = i;
+        y = (-frexp(a,&fake) + 50);
+        if (y >= 0 && y <= 100)
+        {
+            gotoxy(x, y);
+            printf("*");
+        }
+        x += 2;
     }
     gotoxy(0, 0);
     puts("按任意键继续");
