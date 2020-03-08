@@ -1,18 +1,23 @@
-#include<stdio.h>
-#include<windows.h>
-#include<math.h>
+#include <stdio.h>
+#include <windows.h>
+#include <math.h>
 #define WIDE 200
 #define HIGHT 100
 
 void printxy(); //打印坐标轴
-void contrll();  //初等函数菜单
+void contrll(); //初等函数菜单
 
 void Constantfunctions();      //一次函数
 void Powers();                 //幂函数
 void Exponentialfunctions();   //指数函数
 void Logarithms();             //对数函数
 void Trigonometricfunctions(); //三角函数
-void Hyperbolicfunctions();    //双曲线函数
+
+void sin1();
+void cos1();
+void tan1();
+
+void Hyperbolicfunctions(); //双曲线函数
 
 void gotoxy(int x, int y)
 {
@@ -22,38 +27,26 @@ void gotoxy(int x, int y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-
-
-
 int main(void)
 {
     system("mode con: cols=200 lines=100"); //设置窗口大小
-
-    while(1)
-{
-    contrll();
-
-}
-
+    while (1)
+        contrll();
     return 0;
 }
 
-
-
-void printxy()   //打印坐标轴
+void printxy() //打印坐标轴
 {
 
     for (int i = 0; i < WIDE; i++)
     {
-        gotoxy(i, HIGHT/2);
+        gotoxy(i, HIGHT / 2);
         printf("_");
-
     }
     for (int i = 0; i < HIGHT; i++)
     {
-        gotoxy(WIDE/2, i);
+        gotoxy(WIDE / 2, i);
         printf("|");
-
     }
 }
 
@@ -68,7 +61,7 @@ void contrll()
     puts("6.双曲线函数");
     printf("输入你要画出函数的类型对应的序号");
     int xu;
-    scanf("%d",&xu);
+    scanf("%d", &xu);
     getchar();
 
     switch (xu)
@@ -92,39 +85,37 @@ void contrll()
         Hyperbolicfunctions();
         break;
     }
-
-
-    }
+}
 void Constantfunctions()
-    {
-        puts("当前你使用的是一次函数");
-        float k, b;
-        printf("输入k值");
-        scanf("%f", &k);
-        getchar();
-        printf("输入b值");
-        scanf("%f", &b);
-        getchar();
-        puts("您已成功录入");
-        Sleep(500);
-        system("cls");
+{
+    puts("当前你使用的是一次函数");
+    float k, b;
+    printf("输入k值");
+    scanf("%f", &k);
+    getchar();
+    printf("输入b值");
+    scanf("%f", &b);
+    getchar();
+    puts("您已成功录入");
+    Sleep(500);
+    system("cls");
 
-        printxy();
-        int x=0,y;
-            for (int i = -50; i < 50; i++)
+    printxy();
+    int x = 0, y;
+    for (int i = -50; i < 50; i++)
+    {
+        y = -(k * i + b) + 50;
+        if (y > 0 && y < 100)
         {
-            y=-(k*i+b)+50;
-            if(y>0 && y<100)
-            {
-                gotoxy(x, y);
-                printf("*");
-            }
-            x += 2;
+            gotoxy(x, y);
+            printf("*");
         }
-        gotoxy(0,0);
-        puts("按任意键继续");
-        getchar();
-        system("cls");
+        x += 2;
+    }
+    gotoxy(0, 0);
+    puts("按任意键继续");
+    getchar();
+    system("cls");
 }
 
 void Powers() //数字相差过大竖直补齐
@@ -132,24 +123,24 @@ void Powers() //数字相差过大竖直补齐
     puts("当前模式幂函数");
     puts("输入次方数");
     float a;
-    scanf("%f",&a);
+    scanf("%f", &a);
     getchar();
     puts("您已成功录入");
     Sleep(500);
     system("cls");
 
     printxy();
-    int x =0, y;
+    int x = 0, y;
     for (int i = -50; i < 50; i++)
     {
-        int fake=i;
-        y=(-pow(fake,a)+50);
+        int fake = i;
+        y = (-pow(fake, a) + 50);
         if (y >= 0 && y <= 100)
         {
             gotoxy(x, y);
             printf("*");
         }
-            x += 2;
+        x += 2;
     }
     gotoxy(0, 0);
     puts("按任意键继续");
@@ -173,7 +164,7 @@ void Exponentialfunctions()
     for (int i = -50; i < 50; i++)
     {
         int fake = i;
-        y = (-pow(a,fake) + 50);
+        y = (-pow(a, fake) + 50);
         if (y >= 0 && y <= 100)
         {
             gotoxy(x, y);
@@ -202,35 +193,6 @@ void Logarithms()
     int x = 0, y;
     for (int i = -50; i < 50; i++)
     {
-        y = (-(log10(i)/log10(a)) + 50);
-        if (y >= 0 && y <= 100)
-        {
-            gotoxy(x, y);
-            printf("*");
-        }
-        x += 2;
-    }
-    gotoxy(0, 0);
-    puts("按任意键继续");
-    getchar();
-    system("cls");
-}
-
-void Trigonometricfunctions()
-{
-    puts("当前模式三角函数");
-    puts("选择模式");
-    float a;
-    scanf("%f", &a);
-    getchar();
-    puts("您已成功录入");
-    Sleep(500);
-    system("cls");
-
-    printxy();
-    int x = 0, y;
-    for (int i = -50; i < 50; i++)
-    {
         y = (-(log10(i) / log10(a)) + 50);
         if (y >= 0 && y <= 100)
         {
@@ -245,6 +207,87 @@ void Trigonometricfunctions()
     system("cls");
 }
 
+void sin1()
+{
+    printxy();
+    int x = 0, y;
+    for (int i = -50; i < 50; i++)
+    {
+        y = (-(sin(i)) + 50);
+        if (y >= 0 && y <= 100)
+        {
+            gotoxy(x, y);
+            printf("*");
+        }
+        x += 2;
+    }
+    gotoxy(0, 0);
+    puts("按任意键继续");
+    getchar();
+    system("cls");
+}
+void cos1()
+{
+    printxy();
+    int x = 0, y;
+    for (int i = -50; i < 50; i++)
+    {
+        float a = i;
+        y = (-(cos(a)) + 50);
+        if (y >= 0 && y <= 100)
+        {
+            gotoxy(x, y);
+            printf("*");
+        }
+        x += 2;
+    }
+    gotoxy(0, 0);
+    puts("按任意键继续");
+    getchar();
+    system("cls");
+}
+void tan1()
+{
+    printxy();
+    int x = 0, y;
+    for (int i = -50; i < 50; i += 3)
+    {
+        y = (-(tan(i)) + 50);
+        if (y >= 0 && y <= 100)
+        {
+            gotoxy(x, y);
+            printf("*");
+        }
+        x += 10;
+    }
+    gotoxy(0, 0);
+    puts("按任意键继续");
+    getchar();
+    system("cls");
+}
+
+void Trigonometricfunctions()
+{
+    puts("当前模式三角函数");
+    puts("选择模式");
+
+    puts("1.正弦函数");
+    puts("2.余弦函数");
+    puts("3.正弦函数");
+    float a;
+    scanf("%f", &a);
+    getchar();
+    puts("您已成功录入");
+    Sleep(500);
+    system("cls");
+    if (a == 1)
+        sin1();
+    else if (a == 2)
+        cos1();
+    else if (a == 3)
+        tan1();
+}
+
 void Hyperbolicfunctions() //空格代替延申
 {
     puts("当前模式双曲线函数");
@@ -257,18 +300,27 @@ void Hyperbolicfunctions() //空格代替延申
     system("cls");
 
     printxy();
-    int x = 0, y;
+    int x = 0, y=0;
     for (int i = -50; i < 50; i++)
     {
-
-        if(i!=0)
+        if (i != 0)
         {
-        y = (-(a/i) + 50);
-        if (y >= 0 && y <= 100)
-        {
-            gotoxy(x, y);
-            printf("*");
-        }
+            //int lasty = y;
+            y = (-(a / i) + 50);
+/*             
+            if(y>lasty-5)
+            {
+                for (int i = 0; i < y-lasty; i++)
+            {
+                int bu = x-1;
+                gotoxy(bu, y--);
+            }
+            } */
+            if (y >= 0 && y <= 100)
+            {
+                gotoxy(x, y);
+                printf("*");
+            }
         }
         x += 2;
     }
